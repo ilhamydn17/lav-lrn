@@ -24,10 +24,8 @@ class StoreMahasiswaRequest extends FormRequest
         return [
             'nim' => 'required',
             'nama' => 'required',
-            'kelas' => 'required',
+            'kelas_id' => 'required',
             'jurusan' => 'required',
-            'email'=> 'required',
-            'tanggal_lahir' => 'required',
             'no_handphone' => 'required',
         ];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\Mahasiswa;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\StoreMahasiswaRequest;
@@ -15,7 +16,7 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mahasiswas = Mahasiswa::all();
+        $mahasiswas = Mahasiswa::paginate(5);
         return view('mahasiswa.index', compact('mahasiswas'));
     }
 
@@ -24,7 +25,8 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        return view('mahasiswa.create');
+        $kelas = Kelas::all();
+        return view('mahasiswa.create', compact('kelas'));
     }
 
     /**
@@ -32,9 +34,11 @@ class MahasiswaController extends Controller
      */
     public function store(StoreMahasiswaRequest $request)
     {
-        Mahasiswa::create($request->validated());
+        if(Mahasiswa::create($request->validated())){
+            Alert::success('Success', 'Mahasiswa berhasil ditambahkan!');
+        }
 
-        return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa berhasil ditambahkan!');
+        return redirect()->route('mahasiswa.index');
     }
 
     /**
@@ -50,7 +54,8 @@ class MahasiswaController extends Controller
      */
     public function edit(Mahasiswa $mahasiswa)
     {
-        return view('mahasiswa.edit', compact('mahasiswa'));
+        $kelas = Kelas::all();
+        return view('mahasiswa.edit', compact(['mahasiswa', 'kelas']));
     }
 
     /**
@@ -71,8 +76,15 @@ class MahasiswaController extends Controller
      */
     public function destroy(Mahasiswa $mahasiswa)
     {
-        $mahasiswa->delete();
+        if($mahasiswa->delete()){
+            Alert::success('Success', 'Mahasiswa berhasil dihapus!');
+        }
+
 
         return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil dihapus!');
+    }
+
+    public function nilai(Mahasiswa $mahasiswa){
+        return view('mahasiswa.nilai', compact('mahasiswa'));
     }
 }

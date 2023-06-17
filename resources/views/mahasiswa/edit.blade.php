@@ -35,21 +35,11 @@
                         </div>
                         <div class="form-group">
                             <label for="Kelas">Kelas</label>
-                            <input type="Kelas" name="kelas" class="form-control" id="Kelas"
-                                value="{{ $mahasiswa->kelas }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="Jurusan">Jurusan</label>
-                            <input type="Jurusan" name="jurusan" class="form-control" id="Jurusan"
-                                value="{{ $mahasiswa->jurusan }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control" id="Jurusan" aria-describedby="Jurusan" value="{{ $mahasiswa->email }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="tanggal-lahir">Tanggal Lahir</label>
-                            <input type="date" name="tanggal_lahir" class="form-control" id="Jurusan" aria-describedby="Jurusan" value="{{ $mahasiswa->tanggal_lahir }}">
+                            <select class="form-control" name="kelas_id" aria-label="Default select example">
+                                @foreach ($kelas as $item)
+                                    <option value="{{ $item->id }}" @if($item->id == $mahasiswa->kelas->id) selected @endif>{{ $item->nama_kelas }}</option>
+                                @endforeach
+                              </select>
                         </div>
                         <div class="form-group">
                             <label for="No_Handphone">No_Handphone</label>

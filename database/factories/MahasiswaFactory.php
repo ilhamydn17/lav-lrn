@@ -17,7 +17,11 @@ class MahasiswaFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nim' => $this->faker->numerify('##########'),
+            'nama' => $this->faker->name(),
+            'kelas_id' => $this->faker->numberBetween(1, 9),
+            'jurusan' => $this->faker->randomElement(['Teknik Informatika', 'Teknik Mesin', 'Teknik Elektro', 'Teknik Sipil', 'Teknik Industri']),
+            'no_handphone' => $this->faker->randomNumber(),
         ];
     }
 }

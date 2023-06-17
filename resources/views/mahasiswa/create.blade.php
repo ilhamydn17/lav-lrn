@@ -32,20 +32,15 @@
                         </div>
                         <div class="form-group">
                             <label for="Kelas">Kelas</label>
-                            <input type="Kelas" name="kelas" class="form-control" id="Kelas"
-                                aria-describedby="password">
+                            <select class="form-control" name="kelas_id" aria-label="Default select example">
+                                @foreach ($kelas as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_kelas }}</option>
+                                @endforeach
+                              </select>
                         </div>
                         <div class="form-group">
                             <label for="Jurusan">Jurusan</label>
                             <input type="Jurusan" name="jurusan" class="form-control" id="Jurusan" aria-describedby="Jurusan">
-                        </div>
-                        <div class="form-group">
-                            <label for="Jurusan">Email</label>
-                            <input type="Jurusan" name="email" class="form-control" id="Jurusan" aria-describedby="Jurusan">
-                        </div>
-                        <div class="form-group">
-                            <label for="Jurusan">Tanggal Lahir</label>
-                            <input type="date" name="tanggal_lahir" class="form-control" id="Jurusan" aria-describedby="Jurusan">
                         </div>
                         <div class="form-group">
                             <label for="No_Handphone">No_Handphone</label>

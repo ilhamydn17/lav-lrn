@@ -24,24 +24,19 @@
             <th>Nama</th>
             <th>Kelas</th>
             <th>Jurusan</th>
-            <th>Email</th>
-            <th>TTL</th>
-            <th>No_Handphone</th>
             <th width="280px">Action</th>
         </tr>
         @foreach ($mahasiswas as $mahasiswa)
             <tr>
                 <td>{{ $mahasiswa->nim }}</td>
                 <td>{{ $mahasiswa->nama }}</td>
-                <td>{{ $mahasiswa->kelas }}</td>
+                <td>{{ $mahasiswa->kelas->nama_kelas }}</td>
                 <td>{{ $mahasiswa->jurusan }}</td>
-                <td>{{ $mahasiswa->email }}</td>
-                <td>{{ $mahasiswa->tanggal_lahir }}</td>
-                <td>{{ $mahasiswa->no_handphone }}</td>
                 <td>
                     <a class="btn btn-info" href="{{ route('mahasiswa.show', $mahasiswa) }}">Show</a>
                     <a class="btn btn-primary" href="{{ route('mahasiswa.edit', $mahasiswa) }}">Edit</a>
                     <a type="submit" onclick="event.preventDefault(); document.getElementById('delete-form').submit() " class="btn btn-danger text-white">Delete</a>
+                    <a class="btn btn-warning" href="{{ route('mahasiswa.nilai', $mahasiswa) }}">Nilai</a>
                     <form id="delete-form" action="{{ route('mahasiswa.destroy', $mahasiswa) }}" method="post">
                         @csrf
                         @method('DELETE')
@@ -50,4 +45,5 @@
             </tr>
         @endforeach
     </table>
+    {{ $mahasiswas->links() }}
 @endsection

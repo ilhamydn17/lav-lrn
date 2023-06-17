@@ -24,10 +24,8 @@ class UpdateMahasiswaRequest extends FormRequest
         return [
             'nim' => 'string',
             'nama' => 'string',
-            'kelas' => 'string' ,
+            'kelas_id' => 'numeric' ,
             'jurusan' => 'string' ,
-            'email'=> 'string',
-            'tanggal_lahir' => 'date',
             'no_handphone' => 'string',
         ];
     }
