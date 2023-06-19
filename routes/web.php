@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\MahasiswaController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\MahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+// ARTICLE ROUTE
+Route::resource('article', ArticleController::class);
+Route::get('PDF/tes', [ArticleController::class, 'generatePdf']);
+
+// MAHASISWA ROUTE
+Route::resource('mahasiswa', MahasiswaController::class);

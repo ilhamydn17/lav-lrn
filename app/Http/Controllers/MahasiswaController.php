@@ -75,4 +75,8 @@ class MahasiswaController extends Controller
 
         return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil dihapus!');
     }
+
+    public function editGambar(){
+
+    }
 }

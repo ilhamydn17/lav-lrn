@@ -11,5 +11,5 @@ class Article extends Model
 
     protected $tabel = 'article';
 
-    protected $fillable = ['title', 'content', 'featured_image'];
+    protected $fillable = ['title', 'content', 'image_content'];
 }

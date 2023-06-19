@@ -24,9 +24,6 @@
             <th>Nama</th>
             <th>Kelas</th>
             <th>Jurusan</th>
-            <th>Email</th>
-            <th>TTL</th>
-            <th>No_Handphone</th>
             <th width="280px">Action</th>
         </tr>
         @foreach ($mahasiswas as $mahasiswa)

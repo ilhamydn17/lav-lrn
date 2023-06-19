@@ -11,7 +11,7 @@ class UpdateArticleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title'=> 'string',
+            'content' => 'string',
+            'image_content'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
 }

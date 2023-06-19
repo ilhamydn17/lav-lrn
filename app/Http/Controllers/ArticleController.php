@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use \Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 
@@ -13,7 +15,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $articles = Article::all();
+        return view('article.index', compact('articles'));
     }
 
     /**
@@ -21,7 +24,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('article.create');
     }
 
     /**
@@ -29,7 +32,15 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+
+        if($request->hasFile('image')){
+            $validatedData['image_content'] = $request->file('image')->store('article_images', 'public');
+        }
+
+        Article::create($validatedData);
+
+        return redirect()->route('article.index');
     }
 
     /**
@@ -45,7 +56,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        return view('article.edit', compact('article'));
     }
 
     /**
@@ -53,7 +64,13 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        //
+        $image_name = $article->image_content;
+        if($request->hasFile('update_image')){
+            Storage::delete($image_name);
+            $image_name = $request->file('update_image')->store('article_images', 'public');
+        }
+        $article->update($request->validated() + ['image_content' => $image_name]);
+        return redirect()->route('article.index');
     }
 
     /**
@@ -62,5 +79,11 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         //
+    }
+
+    public function generatePdf(){
+        $articles = Article::all();
+        $pdf = PDF::loadView('pdf.tesPdf', compact('articles'));
+        return $pdf->stream('test.pdf');
     }
 }
