@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\Mahasiswa;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\StoreMahasiswaRequest;
 use App\Http\Requests\UpdateMahasiswaRequest;
-// use RealRashid\SweetAlert\Facades\Alert;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MahasiswaController extends Controller
 {
@@ -34,11 +35,15 @@ class MahasiswaController extends Controller
      */
     public function store(StoreMahasiswaRequest $request)
     {
-        if(Mahasiswa::create($request->validated())){
-            Alert::success('Success', 'Mahasiswa berhasil ditambahkan!');
+        $validatedData = $request->validated();
+
+        if($request->file('image_mhs')){
+            $validatedData['image_mhs'] = $request->file('image_mhs')->storeAs('mahasiswa_images',$request->nim.'.'.$request->file('image_mhs')->extension(), 'public');
         }
 
-        return redirect()->route('mahasiswa.index');
+        Mahasiswa::create($validatedData);
+
+        return redirect()->route('mahasiswa.index')->with('Success', 'Data Mahasiswa berhasil ditambahkan!');
     }
 
     /**
@@ -63,10 +68,17 @@ class MahasiswaController extends Controller
      */
     public function update(UpdateMahasiswaRequest $request, Mahasiswa $mahasiswa)
     {
-        if($mahasiswa->update($request->validated())){
-            Alert::success('Success', 'Mahasiswa berhasil diupdate!');
+        $image_mhs = $mahasiswa->image_mhs;
+        $validatedData = $request->validated();
+        // dd($mahasiswa->image_mhs);
+        if($request->hasFile('update_image') ){
+            if(Storage::exists('public/' . $image_mhs) && $image_mhs != null) Storage::delete($image_mhs);
+            $validatedData['image_mhs'] = $request->file('update_image')->storeAs('mahasiswa_images',$request->nim.'.'.$request->file('update_image')->extension(), 'public');
         }
 
+        $mahasiswa->update($validatedData);
+
+        Alert::success('Success', 'Mahasiswa berhasil diupdate!');
 
         return redirect()->route('mahasiswa.index');
     }
@@ -79,12 +91,16 @@ class MahasiswaController extends Controller
         if($mahasiswa->delete()){
             Alert::success('Success', 'Mahasiswa berhasil dihapus!');
         }
-
-
+        Storage::delete('public/' . $mahasiswa->image_mhs);
         return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil dihapus!');
     }
 
     public function nilai(Mahasiswa $mahasiswa){
         return view('mahasiswa.nilai', compact('mahasiswa'));
+    }
+
+    public function exporPDf(Mahasiswa $mahasiswa){
+        $pdf = PDF::loadView('mahasiswa.cetak-pdf', compact('mahasiswa'))->setPaper('a3', 'portrait');
+        return $pdf->download('nilai-' . $mahasiswa->nama . '.pdf');
     }
 }

@@ -27,6 +27,7 @@ class UpdateMahasiswaRequest extends FormRequest
             'kelas_id' => 'numeric' ,
             'jurusan' => 'string' ,
             'no_handphone' => 'string',
+            'image_mhs' => 'image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 }

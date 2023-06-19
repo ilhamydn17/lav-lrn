@@ -17,7 +17,7 @@ class MahasiswaMatakuliahFactory extends Factory
     public function definition(): array
     {
         return [
-            'mahasiswa_id' => $this->faker->numberBetween(1, 25),
+            'mahasiswa_id' => $this->faker->numberBetween(1, 4),
             'matakuliah_id' => $this->faker->numberBetween(1, 4),
             'nilai'=> $this->faker->randomElement(['A', 'B', 'C', 'D', 'E']),
         ];

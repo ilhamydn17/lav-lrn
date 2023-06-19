@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('content')
-    <div class="container p-3">
+    <div class="container">
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left mt-2">
@@ -53,8 +53,6 @@
                     @endforelse
                  </tbody>
                </table>
-               <a href="{{ route('mahasiswa.index') }}" class="btn btn-primary">Kembali</a>
-               <a href="{{ route('mahasiswa.pdf', $mahasiswa) }}" class="btn btn-danger">PDF</a>
             </div>
 
         </div>

@@ -27,6 +27,7 @@ class StoreMahasiswaRequest extends FormRequest
             'kelas_id' => 'required',
             'jurusan' => 'required',
             'no_handphone' => 'required',
+            'image_mhs'=> 'image|mimes:png,jpg'
         ];
     }
 }

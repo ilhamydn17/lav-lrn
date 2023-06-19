@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nim', 10);
             $table->string('nama', 100);
             $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade')->nullable();
+            $table->string('image_mhs', 100)->nullable();
             $table->string('jurusan', 100);
             $table->string('no_handphone', 50);
             $table->timestamps();
