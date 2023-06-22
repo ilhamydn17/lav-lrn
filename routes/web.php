@@ -21,3 +21,4 @@ Route::get('/', function () {
 Route::resource('mahasiswa', MahasiswaController::class);
 Route::name('mahasiswa.nilai')->get('/mahasiswa/{mahasiswa}/nilai', [MahasiswaController::class, 'nilai']);
 Route::name('mahasiswa.pdf')->get('/mahasiswa/{mahasiswa}/export-pdf', [MahasiswaController::class, 'exporPDf']);
+Route::name('mahasiswa.search')->post('mahasiswa/search', [MahasiswaController::class, 'search']);

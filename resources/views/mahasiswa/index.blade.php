@@ -6,6 +6,21 @@
             <div class="pull-left mt-2">
                 <h2>JURUSAN TEKNOLOGI INFORMASI-POLITEKNIK NEGERI MALANG</h2>
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="input-group mb-3">
+                <form action="{{ route('mahasiswa.search') }}" method="post">
+                    @csrf
+                    @method('post')
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Button</button>
+                    <input name="keyword" type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-7">
             <div class="float-right my-2">
                 <a class="btn btn-success" href="{{ route('mahasiswa.create') }}"> Input Mahasiswa</a>
             </div>
@@ -31,13 +46,15 @@
             <tr>
                 <td>{{ $mahasiswa->nim }}</td>
                 <td>{{ $mahasiswa->nama }}</td>
-                <td><img src="{{ asset('storage/' . $mahasiswa->image_mhs) }}" width="100px" height="100px" alt=""></td>
+                <td><img src="{{ asset('storage/' . $mahasiswa->image_mhs) }}" width="100px" height="100px" alt="">
+                </td>
                 <td>{{ $mahasiswa->kelas->nama_kelas }}</td>
                 <td>{{ $mahasiswa->jurusan }}</td>
                 <td>
                     <a class="btn btn-info" href="{{ route('mahasiswa.show', $mahasiswa) }}">Show</a>
                     <a class="btn btn-primary" href="{{ route('mahasiswa.edit', $mahasiswa) }}">Edit</a>
-                    <a type="submit" onclick="event.preventDefault(); document.getElementById('delete-form').submit() " class="btn btn-danger text-white">Delete</a>
+                    <a type="submit" onclick="event.preventDefault(); document.getElementById('delete-form').submit() "
+                        class="btn btn-danger text-white">Delete</a>
                     <a class="btn btn-warning" href="{{ route('mahasiswa.nilai', $mahasiswa) }}">Nilai</a>
                     <form id="delete-form" action="{{ route('mahasiswa.destroy', $mahasiswa) }}" method="post">
                         @csrf

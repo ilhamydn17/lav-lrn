@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\Mahasiswa;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\StoreMahasiswaRequest;
 use App\Http\Requests\UpdateMahasiswaRequest;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
 {
@@ -102,5 +103,11 @@ class MahasiswaController extends Controller
     public function exporPDf(Mahasiswa $mahasiswa){
         $pdf = PDF::loadView('mahasiswa.cetak-pdf', compact('mahasiswa'))->setPaper('a3', 'portrait');
         return $pdf->download('nilai-' . $mahasiswa->nama . '.pdf');
+    }
+
+    public function search (Request $request){
+        $keyword = $request->get('keyword');
+        $mahasiswas = Mahasiswa::search($keyword)->paginate(5);
+        return view('mahasiswa.index', compact('mahasiswas'));
     }
 }

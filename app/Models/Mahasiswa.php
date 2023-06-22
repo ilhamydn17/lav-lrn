@@ -26,4 +26,8 @@ class Mahasiswa extends Model
     public function mahasiswaMatakuliah(){
         return $this->hasMany(MahasiswaMatakuliah::class);
     }
+
+    public static function search($keyword){
+        return self::where('nama', 'like', '%'. $keyword .'%');
+    }
 }
