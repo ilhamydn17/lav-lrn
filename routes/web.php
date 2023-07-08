@@ -14,6 +14,9 @@ use App\Http\Controllers\PageController;
 |
 */
 
+/*
+    ==>> PRAKTIKUM 1 <<==
+*/
 Route::get('/', function () {
     return view('welcome');
 });
@@ -39,11 +42,9 @@ Route::get('about', function () {
 // -> Halaman Contact Us
 Route::resource('contact', CompanyController::class)->only(['index']);
 
-
-
-
-
-
+/*
+    ==>> PRAKTIKUM 2 <<==
+*/
 Route::get('dashboard', function () {
     return view('app.home');
 });
