@@ -39,6 +39,10 @@ Route::get('about', function () {
 // -> Halaman Contact Us
 Route::resource('contact', CompanyController::class)->only(['index']);
 
+Route::get('test', function () {
+    return view('app.about');
+});
+
 
 
 
